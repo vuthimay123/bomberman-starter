@@ -48,14 +48,14 @@ public class FileLevelLoader extends LevelLoader {
 //                b[i]=Integer.parseInt(value[i]);
 			StringTokenizer string1 = new StringTokenizer(a);
 			_level = Integer.parseInt(string1.nextToken());
-			_width = Integer.parseInt(string1.nextToken());
 			_height = Integer.parseInt(string1.nextToken());
-			_map = new char[_width][_height];
+			_width = Integer.parseInt(string1.nextToken());
+			_map = new char[_height][_width];
 			//a = bufferedReader.readLine();
 			for (int i = 0; i < _height; i++) {
 				String line = bufferedReader.readLine();
 				for (int j = 0; j < _width; j++) {
-					_map[i][j] = line.charAt(i);
+					_map[i][j] = line.charAt(j);
 				}
 			}
 		}catch (FileNotFoundException e) {
@@ -78,7 +78,7 @@ public class FileLevelLoader extends LevelLoader {
 		{
 			for(int y=0;y<_height;y++){
 				int pos=x+y*_width;
-				switch (_map[x][y]){
+				switch (_map[y][x]){
 					case '#':
 						_board.addEntity(pos,new Wall(x,y,Sprite.wall ));
 						break;
