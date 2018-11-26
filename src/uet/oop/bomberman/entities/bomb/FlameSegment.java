@@ -1,6 +1,10 @@
 package uet.oop.bomberman.entities.bomb;
 
+//import org.graalvm.compiler.asm.sparc.SPARCAssembler;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Character;
+import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -68,6 +72,12 @@ public class FlameSegment extends Entity {
 	@Override
 	public boolean collide(Entity e) {
 		// TODO: xử lý khi FlameSegment va chạm với Character
+		if (e instanceof Bomber){
+			((Character)e).kill();
+		}
+		if(e instanceof Brick)
+			((Brick) e).destroy();
+
 		return true;
 	}
 	

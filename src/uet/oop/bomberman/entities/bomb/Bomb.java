@@ -1,10 +1,14 @@
 package uet.oop.bomberman.entities.bomb;
 
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.AnimatedEntitiy;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.level.Coordinates;
 
 public class Bomb extends AnimatedEntitiy {
 
@@ -21,6 +25,7 @@ public class Bomb extends AnimatedEntitiy {
 		_y = y;
 		_board = board;
 		_sprite = Sprite.bomb;
+		_flames=new Flame[0];
 	}
 	
 	@Override
@@ -73,10 +78,19 @@ public class Bomb extends AnimatedEntitiy {
      */
 	protected void explode() {
 		_exploded = true;
+
 		
 		// TODO: xử lý khi Character đứng tại vị trí Bomb
-		
+		Character character = _board.getCharacterAtExcluding((int) _x, (int) _y, null);
+		if(character!=null)
+			character.kill();
 		// TODO: tạo các Flame
+		Flame flame0=new Flame((int)_x,(int)_y,0, Game.getBombRadius(),_board);
+		Flame flame1=new Flame((int)_x,(int)_y,1, Game.getBombRadius(),_board);
+		Flame flame2=new Flame((int)_x,(int)_y,2, Game.getBombRadius(),_board);
+		Flame flame3=new Flame((int)_x,(int)_y,3, Game.getBombRadius(),_board);
+		_flames=new Flame[]{flame0,flame1,flame2,flame3};
+
 	}
 	
 	public FlameSegment flameAt(int x, int y) {
@@ -95,6 +109,22 @@ public class Bomb extends AnimatedEntitiy {
 	public boolean collide(Entity e) {
         // TODO: xử lý khi Bomber đi ra sau khi vừa đặt bom (_allowedToPassThru)
         // TODO: xử lý va chạm với Flame của Bomb khác
-        return false;
+		if(e instanceof Flame)
+		{
+			explode();
+			return false;
+		}
+		if(e instanceof Bomber)
+		{
+			double diffX = e.getX() - Coordinates.tileToPixel(getX());
+			double diffY = e.getY() - Coordinates.tileToPixel(getY());
+
+			if(!(diffX >= -10 && diffX < 16 && diffY >= 1 && diffY <= 28)) { // differences to see if the player has moved out of the bomb, tested values
+				_allowedToPassThru = false;
+			}
+
+			return _allowedToPassThru;
+		}
+        return true;
 	}
 }

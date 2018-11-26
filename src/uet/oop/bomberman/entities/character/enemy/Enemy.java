@@ -14,6 +14,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
 import java.awt.*;
+import java.util.Random;
 
 public abstract class Enemy extends Character {
 
@@ -73,7 +74,7 @@ public abstract class Enemy extends Character {
 			
 		screen.renderEntity((int)_x, (int)_y - _sprite.SIZE, this);
 	}
-	
+
 	@Override
 	public void calculateMove() {
 		// TODO: Tính toán hướng đi và di chuyển Enemy theo _ai và cập nhật giá trị cho _direction
@@ -146,11 +147,11 @@ public abstract class Enemy extends Character {
 			kill();
 			return false;
 		}
-		if(e instanceof Bomber)
-		{
-			((Bomber)  e).kill();
-			return false;
-		}
+//		if(e instanceof Bomber)
+//		{
+//			((Bomber)  e).kill();
+//			return false;
+//		}
 		return true;
 	}
 	
