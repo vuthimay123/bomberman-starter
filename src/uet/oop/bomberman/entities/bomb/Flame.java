@@ -71,6 +71,7 @@ public class Flame extends Entity {
 	 * Tính toán độ dài của Flame, nếu gặp vật cản là Brick/Wall, độ dài sẽ bị cắt ngắn
 	 * @return
 	 */
+	//jj
 	private int calculatePermitedDistance() {
 		// TODO: thực hiện tính toán độ dài của Flame
 		int radius = 0;
