@@ -5,6 +5,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.Wall;
+import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
 
 public class Flame extends Entity {
@@ -49,10 +50,10 @@ public class Flame extends Entity {
 		int lengthofFlames= _flameSegments.length;
 		// TODO: tạo các segment dưới đây
 		int xa=0;int ya=0;
-		if(_direction==0) ya=-1;
-		if(_direction==1) xa=1;
-		if(_direction==2) ya=1;
-		if(_direction==3) xa=-1;
+		if(_direction==0) ya-=1;
+		if(_direction==1) xa+=1;
+		if(_direction==2) ya+=1;
+		if(_direction==3) xa-=1;
 		for(int i=0;i<lengthofFlames;i++)
 		{
 			int xfs=(int) (_x+xa*(i+1));
@@ -89,7 +90,7 @@ public class Flame extends Entity {
 
 			Entity entity=_board.getEntity(xfs,yfs,null);
 			entity.collide(this);
-			if(entity instanceof Wall)
+			if((entity instanceof Wall)||(entity instanceof Brick))
 				return i;
 
 
