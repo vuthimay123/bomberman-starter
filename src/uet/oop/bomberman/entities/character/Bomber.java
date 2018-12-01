@@ -78,8 +78,8 @@ public class Bomber extends Character {
         // TODO: sau khi đặt, nhớ giảm số lượng Bomb Rate và reset _timeBetweenPutBombs về 0
         if(_input.space&&_timeBetweenPutBombs<0&&Game.getBombRate()>=1)
         {
-            int x = Coordinates.pixelToTile(_x + _sprite.getSize() / 2);
-            int y = Coordinates.pixelToTile( (_y + _sprite.getSize() / 2) - _sprite.getSize() );
+            int x = Coordinates.pixelToTile(_x+_sprite.getSize()/2);
+            int y = Coordinates.pixelToTile( (_y)-_sprite.getSize()/2);
             placeBomb(x,y);
             Game.addBombRate(-1);
             _timeBetweenPutBombs=30;

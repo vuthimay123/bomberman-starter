@@ -20,7 +20,7 @@ public class FlameItem extends Item {
 			remove();
 
 		}
-		return true;
+		return false;
 	}
 
 }

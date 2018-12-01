@@ -72,15 +72,18 @@ public class Flame extends Entity {
 	private int calculatePermitedDistance() {
 		// TODO: thực hiện tính toán độ dài của Flame
 		int xa=0;int ya=0;
-		if(_direction==0)
-			ya=-1;
-		if(_direction==1)
-			xa=1;
-		if(_direction==2)
-			ya=1;
-		if(_direction==3)
-			xa=-1;
+		//int radius=0;
+
+
 		for(int i=0;i<_radius;i++){
+			if(_direction==0)
+				ya=-1;
+			if(_direction==1)
+				xa=1;
+			if(_direction==2)
+				ya=1;
+			if(_direction==3)
+				xa=-1;
 			int xfs=(int) (_x+xa*(i+1));//
 			int yfs=(int) (_y +ya*(i+1));
 
