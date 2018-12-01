@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.bomb;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
@@ -72,30 +73,25 @@ public class Flame extends Entity {
 	 */
 	private int calculatePermitedDistance() {
 		// TODO: thực hiện tính toán độ dài của Flame
-		int xa=0;int ya=0;
-		//int radius=0;
+		int radius = 0;
+		int x = (int)_x;
+		int y = (int)_y;
+		while(radius < _radius) {
+			if(_direction == 0) y--;
+			if(_direction == 1) x++;
+			if(_direction == 2) y++;
+			if(_direction == 3) x--;
 
+			Entity a = _board.getEntity(x, y, null);
 
-		for(int i=0;i<_radius;i++){
-			if(_direction==0)
-				ya=-1;
-			if(_direction==1)
-				xa=1;
-			if(_direction==2)
-				ya=1;
-			if(_direction==3)
-				xa=-1;
-			int xfs=(int) (_x+xa*(i+1));//
-			int yfs=(int) (_y +ya*(i+1));
+			if(a instanceof Bomber) ++radius;
 
-			Entity entity=_board.getEntity(xfs,yfs,null);
-			entity.collide(this);
-			if((entity instanceof Wall)||(entity instanceof Brick))
-				return i;
+			if(a.collide(this) == false) //cannot pass thru
+				break;
 
-
-	}
-	return _radius;}
+			++radius;
+		}
+		return radius;}
 	
 	public FlameSegment flameSegmentAt(int x, int y) {
 		for (int i = 0; i < _flameSegments.length; i++) {
